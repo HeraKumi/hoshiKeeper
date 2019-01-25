@@ -6,11 +6,11 @@ This is mainly used to automate commands/download and install packages I need to
 
 ## Todo
 
-[-] Distro Chooser
-[-] Package downloader
-[-] Wallpaper downloader
-[-] neovim setup
-[-] Polybar setup
-[-] Monitor setup
-[-] Drivers setup
-[-] Bloat remover(Deepin only)
+- [ ] Distro Chooser
+- [ ] Package downloader
+- [ ] Wallpaper downloader
+- [ ] neovim setup
+- [ ] Polybar setup
+- [ ] Monitor setup
+- [ ] Drivers setup
+- [ ] Bloat remover(Deepin only)
