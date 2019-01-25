@@ -13,18 +13,16 @@ __menu () {
     DISTRO=""
     RESULT=""
     
-    echo -e "Please choose from the list below which distro you would like to choose!\n"
+    echo -e "Please choose from the list below which distro you would like to choose!"
     echo -e "1) Arch\n2) Deepin\n3) Quit\n"
     echo -e "Please choose a option [1,2,3]"
     
     read -p "$SELECTION" distro
     case "$distro" in
         1)
-            logThis -p ${FUNCNAME} "Arch has been choosen"
             RESULT="Arch"
         ;;
         2)
-            logThis -p ${FUNCNAME} "Deepin has been choosen"
             RESULT="Deepin"
         ;;
         3)
@@ -37,9 +35,8 @@ __menu () {
     esac
     
     DISTRO=$RESULT
-    DISTRO_CHOOSEN="Distro: $DISTRO\n"
+    DISTRO_CHOOSEN="set '$DISTRO' as main distro"
     
-    logThis -p ${FUNCNAME} "$DISTRO has been set"
     logThis -p ${FUNCNAME} "$DISTRO_CHOOSEN"
 }
 
@@ -53,37 +50,32 @@ __checkIfOnline () {
     
     if [ $_ONLINE == 1 ]; then
         logThis -p ${FUNCNAME} "connected to the internet"
-    else
-        if [ ! $_ONLINE == 1 ]; then
-            logThis -e ${FUNCNAME} "Please make a connection to the internet"
-            exit 1
-        fi
+        
+        elif [ $_ONLINE == 0 ]; then
+        logThis -e ${FUNCNAME} "Please make a connection to the internet"
+        exit 1
     fi
+    
 }
 
-# VARI__="\e[0m"
+# VARI__="\e[0m"  Reset all
 logThis (){
     
     VARI__=""
     
     case "$1" in
-        "-e")
-            VARI__="\e[91mFAIL\e[0m"
-        ;;
-        
         "-p")
             VARI__="\e[92mGOOD\e[0m"
         ;;
-        
+        "-e")
+            VARI__="\e[91mFAIL\e[0m"
+        ;;
         *)
             echo "Please choose a option"
         ;;
     esac
     
-    
-    OUTPUT="[$VARI__] [$2]: $3"
-    
-    echo -e $OUTPUT
+    echo -e "[$VARI__] [$2]: $3"
 }
 
 __main
