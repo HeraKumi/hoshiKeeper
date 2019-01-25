@@ -13,9 +13,7 @@ __menu () {
     DISTRO=""
     RESULT=""
     
-    echo -e "Please choose from the list below which distro you would like to choose!"
-    echo -e "1) Arch\n2) Deepin\n3) Quit\n"
-    echo -e "Please choose a option [1,2,3]"
+    echo -e "Please choose from the list below which distro you would like to choose!\n1) Arch\n2) Deepin\n3) Quit\nPlease choose a option [1,2,3]"
     
     read -p "$SELECTION" distro
     case "$distro" in
