@@ -6,6 +6,7 @@ This is mainly used to automate commands/download and install packages I need to
 
 ## Todo
 
+- [ ] Data manager
 - [ ] Distro Chooser
 - [ ] Package downloader
 - [ ] Wallpaper downloader
