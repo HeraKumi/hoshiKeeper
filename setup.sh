@@ -4,54 +4,40 @@
 
 __main () {
     __checkIfOnline
-    __createTemp
-    __menu
-}
-
-
-__menu () {
-    SELECTION="> "
-    DISTRO=""
-    RESULT=""
     
-    echo -e "Please choose:\n1) Distro\n2) Something\nPlease choose a option [1,2]"
-    read -p "$SELECTION" selection
-    case "$selection" in
-        1)
-            logThis -p ${FUNCNAME} "Starting distro chooser"
+    case "$item" in
+        "arch")
+            logThis -p ${FUNCNAME} "Arch found"
+            __archLinux
         ;;
-        2)
-            echo "some other option here"
-        ;;
-        3)
+        
+        "deepin")
+            logThis -p ${FUNCNAME} "Deepin found"
+            __deepinLinux
         ;;
         *)
-            logThis -e ${FUNCNAME} "Invaild selection"
-        ;;
-    esac
-    
-    echo -e "Please choose from the list below which distro you would like to choose!\n1) Arch\n2) Deepin\n3) Quit\nPlease choose a option [1,2,3]"
-    read -p "$SELECTION" distro
-    case "$distro" in
-        1)
-            RESULT="Arch"
-        ;;
-        2)
-            RESULT="Deepin"
-        ;;
-        3)
+            logThis -e ${FUNCNAME} "OS cannot be found."
             exit 1
         ;;
-        *)
-            logThis -e ${FUNCNAME} "Please choose again!"
-            __main
-        ;;
     esac
     
-    DISTRO=$RESULT
-    DISTRO_CHOOSEN="set '$DISTRO' as main distro"
     
-    logThis -p ${FUNCNAME} "$DISTRO_CHOOSEN"
+}
+
+__archLinux () {
+    logThis -p ${FUNCNAME} "Setting mirrorlist"
+    sudo reflector --verbose --country 'united states' -l 5 --sort rate --save /etc/pacman.d/mirrorlist
+    
+    logThis -p ${FUNCNAME} "Updating system"
+    sudo pacman -Syuu
+    
+    logThis -p ${FUNCNAME} "Installing [git, curl, wget]"
+    sudo pacman -S git curl wget
+    
+}
+
+__deepinLinux () {
+    
 }
 
 __checkIfOnline () {
@@ -87,35 +73,6 @@ logThis () {
     esac
     
     echo -e "[$VARI__] [$2]: $3"
-}
-
-__createTemp () { # This is incomplete!
-    if [ -d "bin" ]; then
-        logThis -p ${FUNCNAME} "cding into bin"
-        cd bin
-        elif [ ! -d "bin" ]; then
-        logThis -e ${FUNCNAME} "Bin folder not found, creating bin folder"
-        mkdir bin
-        logThis -p ${FUNCNAME} "Bin folder created, cding into bin folder"
-        cd bin
-    fi
-    
-    if [ -f "data.json" ]; then
-        logThis -p ${FUNCNAME} "found data.json, reading data..."
-        
-        # TODO: read values from data.json by creating a method of reading json files for bash
-        
-        # Here should go a if statment to read the json file line by line to check if values
-        # are empty or not. then should set values
-        
-        # TODO: log values and create a if value is empty log that to output
-        
-        logThis -p ${FUNCNAME} "setting values from data.json"
-        elif [ ! -f "data.json" ]; then
-        logThis -e ${FUNCNAME} "data.json file doesn't exist, creating file"
-        touch data.json
-        logThis -p ${FUNCNAME} "data.json file created"
-    fi
 }
 
 __main
